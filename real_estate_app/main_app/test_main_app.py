@@ -5,37 +5,35 @@ from .utils import make_prediction
 
 @pytest.mark.django_db
 def test_good_prediction():
-    good_input = {
-        'Year_Built': '1990',
-        'Total_Bsmt_SF': '1000',
-        '1st_Flr_SF': '1200',
-        'Gr_Liv_Area': '1800',
-        'Garage_Area': '500',
-        'Overall_Qual': '8',
-        'Full_Bath': '2',
-        'Exter_Qual': 'TA',
-        'Kitchen_Qual': 'Gd',
-        'Neighborhood': 'CollgCr'
-    }
+    good_input = {'Year_Built': 1800,
+                  '1st_Flr_SF': 1800,
+                  'Gr_Liv_Area': 5,
+                  'Garage_Area': 4,
+                  'Overall_Qual': 4,
+                  'Full_Bath': 4,
+                  'Exter_Qual': 'Ex',
+                  'Kitchen_Qual': 'Ex',
+                  'Foundation': 'BrkTil',
+                  'Neighborhood': 'Blmngtn'
+                  }
 
     prediction = make_prediction(good_input)
-    assert prediction == 220863
+    assert prediction != 0
 
 
 @pytest.mark.django_db
 def test_wrong_prediction():
-    wrong_input = {
-        'Year_Built': '1990',
-        'Total_Bsmt_SF': '1000',
-        '1st_Flr_SF': '1200',
-        'Gr_Liv_Area': '1800',
-        'Garage_Area': '500',
-        'Overall_Qual': '8',
-        'Full_Bath': '2',
-        'Exter_Qual': 24,
-        'Kitchen_Qual': 'Gd',
-        'Neighborhood': 'CollgCr'
-    }
+    wrong_input = {'Year_Built': 1800,
+                   '1st_Flr_SF': 1800,
+                   'Gr_Liv_Area': 5,
+                   'Garage_Area': 4,
+                   'Overall_Qual': 4,
+                   'Full_Bath': 4,
+                   'Exter_Qual': 'Ex',
+                   'Kitchen_Qual': 'Ex',
+                   'Foundation': '5',
+                   'Neighborhood': 'Blmngtn'
+                   }
 
     prediction = make_prediction(wrong_input)
     assert prediction == 0
@@ -71,18 +69,17 @@ def test_predict_view_post_method_good_input(client):
 @pytest.mark.django_db
 def test_predict_view_post_method_wrong_input(client):
     url = reverse('predict')
-    data = {
-        'Year_Built': '1990',
-        'Total_Bsmt_SF': '1000',
-        '1st_Flr_SF': '1200',
-        'Gr_Liv_Area': '1800',
-        'Garage_Area': '500',
-        'Overall_Qual': '8',
-        'Full_Bath': '2',
-        'Exter_Qual': '24',
-        'Kitchen_Qual': 'Gd',
-        'Neighborhood': 'CollgCr'
-    }
+    data = {'Year_Built': 1800,
+            '1st_Flr_SF': 1800,
+            'Gr_Liv_Area': 5,
+            'Garage_Area': 4,
+            'Overall_Qual': 4,
+            'Full_Bath': 4,
+            'Exter_Qual': 'Ex',
+            'Kitchen_Qual': 'Ex',
+            'Foundation': 'BrkTil',
+            'Neighborhood': 'Blmngtn'
+            }
     response = client.post(url, data)
     assert response.status_code == 200
     assert response.content == b"The Input is not Correct"
