@@ -31,7 +31,9 @@ def predict(request):
             "Overall_Qual", "Full_Bath", "Exter_Qual",  "Kitchen_Qual",
             "Foundation", "Neighborhood"
         ]:
-            if var in ["Exter_Qual", "Kitchen_Qual", "Foundation", "Neighborhood"]:
+            if var in ["Exter_Qual", "Kitchen_Qual",
+                       "Foundation", "Neighborhood"
+                       ]:
                 X_predict[var] = request.POST.get(var)
             elif var == "First_Flr_SF":
                 X_predict["1st_Flr_SF"] = int(request.POST.get(var))
@@ -41,7 +43,9 @@ def predict(request):
         pred = make_prediction(X_predict)
 
         if pred != 0:
-            return render(request, 'index.html', {'data': float("{:.2f}".format(pred))})
+            return render(request, 'index.html',
+                          {'data': float("{:.2f}".format(pred))}
+                          )
         else:
             return HttpResponse("The Input is not Correct")
     else:
