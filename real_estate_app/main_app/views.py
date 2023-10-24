@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .utils import make_prediction
+from . import forms
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -26,3 +30,9 @@ def predict(request):
             return HttpResponse("The Input is not Correct")
     else:
         return HttpResponse("Method Not Allowed")
+
+
+class SignupPage(CreateView):
+    form_class = forms.UserCreateForm
+    success_url = reverse_lazy('login')
+    template_name = './registration/signup.html'
