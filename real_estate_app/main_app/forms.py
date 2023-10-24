@@ -3,38 +3,48 @@ from django.core import validators
 from . import models
 from .models import CustomUser
 from django.contrib.auth.forms import UserCreationForm
-from .utils import get_foundation_categorie,get_neighborhood_categorie
+from .utils import get_foundation_categorie, get_neighborhood_categorie
+
 
 class SignUp(forms.Form):
     user = forms.CharField(label='User Name', max_length=100)
     email = forms.EmailField(label='Email', max_length=100)
     password = forms.CharField(widget=forms.PasswordInput, label='PassWord')
 
+
 class UserCreateForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'password1','password2','email')
-
+        fields = ('username', 'first_name', 'last_name',
+                  'password1', 'password2', 'email')
 
 
 class RealEstateForm(forms.Form):
     # Numeric Features
-    Year_Built = forms.IntegerField(label="Year Built", min_value=1800, max_value=2023)
-    First_Flr_SF = forms.DecimalField(label="1st Flr SF", min_value=0, max_value=95000)
-    Gr_Liv_Area = forms.DecimalField(label="Gr Liv Area", min_value=0, max_value=910000)
-    Garage_Area = forms.DecimalField(label="Garage Area", min_value=0, max_value=93000)
-    Overall_Qual = forms.IntegerField(label="Overall Qual", min_value=0, max_value=10)
-    Full_Bath = forms.IntegerField(label="Full Bath", min_value=0, max_value=100)
+    Year_Built = forms.IntegerField(
+        label="Year Built", min_value=1800, max_value=2023)
+    First_Flr_SF = forms.DecimalField(
+        label="1st Flr SF", min_value=0, max_value=95000)
+    Gr_Liv_Area = forms.DecimalField(
+        label="Gr Liv Area", min_value=0, max_value=910000)
+    Garage_Area = forms.DecimalField(
+        label="Garage Area", min_value=0, max_value=93000)
+    Overall_Qual = forms.IntegerField(
+        label="Overall Qual", min_value=0, max_value=10)
+    Full_Bath = forms.IntegerField(
+        label="Full Bath", min_value=0, max_value=100)
     # Ordinal Features
     Exter_Qual = forms.ChoiceField(
         label="Exterior Quality",
-        choices=[('Ex', 'Excellent'), ('Gd', 'Good'), ('TA', 'Average'), ('Fa', 'Fair'), ('Po', 'Poor')],
+        choices=[('Ex', 'Excellent'), ('Gd', 'Good'),
+                 ('TA', 'Average'), ('Fa', 'Fair'), ('Po', 'Poor')],
         widget=forms.Select(attrs={'class': 'form-control'})
     )
-    
+
     Kitchen_Qual = forms.ChoiceField(
         label="Kitchen Quality",
-        choices=[('Ex', 'Excellent'), ('Gd', 'Good'), ('TA', 'Average'), ('Fa', 'Fair'), ('Po', 'Poor')],
+        choices=[('Ex', 'Excellent'), ('Gd', 'Good'),
+                 ('TA', 'Average'), ('Fa', 'Fair'), ('Po', 'Poor')],
         widget=forms.Select(attrs={'class': 'form-control'})
     )
 
