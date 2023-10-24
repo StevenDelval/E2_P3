@@ -5,7 +5,7 @@ from pathlib import Path
 
 
 def make_prediction(input: dict) -> float:
-    model_path = '/main_app/static/models/finalized_model.pkl'
+    model_path = './main_app/static/models/finalized_model.pkl'
     model = pickle.load(open(model_path, 'rb'))
 
     try:
@@ -47,7 +47,7 @@ def get_neighborhood_categorie():
         'Veenker': 'Veenker',
     }
 
-    model_path = '/main_app/static/models/finalized_model.pkl'
+    model_path = './main_app/static/models/finalized_model.pkl'
     model = pickle.load(open(model_path, 'rb'))
     categories = []
     for elt in model[:-1].get_feature_names_out():
@@ -71,7 +71,7 @@ def get_foundation_categorie():
         'Wood': 'Wood',
     }
 
-    model_path = '/main_app/static/models/finalized_model.pkl'
+    model_path = './main_app/static/models/finalized_model.pkl'
     model = pickle.load(open(model_path, 'rb'))
     categories = []
     for elt in model[:-1].get_feature_names_out():
