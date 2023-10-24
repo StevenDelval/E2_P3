@@ -5,7 +5,7 @@
 <div class="container mx-auto mt-8">
     <div class="bg-white p-8 rounded-lg shadow-md">
         <h1 class="text-2xl font-bold mb-4">Real Estate Form</h1>
-        <form method="post" action="{% url 'predict' %}">
+        <form method="post" action="{% url 'predict' %}" class="flex flex-col justify-between">
             {% csrf_token %}
             {% for field in form %}
                 <label for="{{ field.name }}" class="block text-sm font-medium text-gray-700">{{ field.label }}</label>

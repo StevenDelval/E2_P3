@@ -37,14 +37,16 @@ def predict(request):
 
         pred = make_prediction(X_predict)
         
-
         if pred != 0:
-            return render(request, 'index.html', {'data': pred})
+            return render(request, 'index.html', {'data': float("{:.2f}".format(pred))})
         else:
             return HttpResponse("The Input is not Correct")
     else:
-        return HttpResponse("Method Not Allowed")
+        return redirect('index')
 
+@login_required
+def historique(request):
+    pass
 
 class SignupPage(CreateView):
     form_class = forms.UserCreateForm

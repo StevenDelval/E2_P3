@@ -19,13 +19,12 @@ class UserCreateForm(UserCreationForm):
 
 class RealEstateForm(forms.Form):
     # Numeric Features
-    Year_Built = forms.IntegerField(label="Year Built")
-    First_Flr_SF = forms.DecimalField(label="1st Flr SF")
-    Gr_Liv_Area = forms.DecimalField(label="Gr Liv Area")
-    Garage_Area = forms.DecimalField(label="Garage Area")
-    Overall_Qual = forms.IntegerField(label="Overall Qual")
-    Full_Bath = forms.IntegerField(label="Full Bath")
-
+    Year_Built = forms.IntegerField(label="Year Built", min_value=1800, max_value=2023)
+    First_Flr_SF = forms.DecimalField(label="1st Flr SF", min_value=0, max_value=95000)
+    Gr_Liv_Area = forms.DecimalField(label="Gr Liv Area", min_value=0, max_value=910000)
+    Garage_Area = forms.DecimalField(label="Garage Area", min_value=0, max_value=93000)
+    Overall_Qual = forms.IntegerField(label="Overall Qual", min_value=0, max_value=10)
+    Full_Bath = forms.IntegerField(label="Full Bath", min_value=0, max_value=100)
     # Ordinal Features
     Exter_Qual = forms.ChoiceField(
         label="Exterior Quality",
