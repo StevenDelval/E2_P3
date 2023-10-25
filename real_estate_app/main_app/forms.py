@@ -18,11 +18,14 @@ class UserCreateForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name',
                   'password1', 'password2', 'email')
 
+
 attrs = {
-            'class': 'bg-gray-50 appearance-none border-black-gray '
-                     'text-gray-700 leading-tight focus:outline-none '
-                     'focus:border-bordeaux'
-        }
+    'class': 'bg-gray-50 appearance-none border-black-gray '
+    'text-gray-700 leading-tight focus:outline-none '
+    'focus:border-bordeaux'
+}
+
+
 class RealEstateForm(forms.Form):
     # Caractéristiques numériques
     Year_Built = forms.IntegerField(

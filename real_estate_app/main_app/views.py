@@ -21,9 +21,11 @@ def index(request):
     }
     return render(request, 'index.html', context=context)
 
-@login_required 
+
+@login_required
 def historique(request):
     return render(request, 'historique.html')
+
 
 @login_required
 def predict(request):
@@ -53,9 +55,6 @@ def predict(request):
             return HttpResponse("The Input is not Correct")
     else:
         return redirect('index')
-
-
-
 
 
 class SignupPage(CreateView):
