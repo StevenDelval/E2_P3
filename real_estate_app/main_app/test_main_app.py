@@ -5,10 +5,12 @@ from django.contrib.auth.models import User
 import pytest
 from .utils import make_prediction
 
+
 class LogoutViewTest(TestCase):
     def test_logout_view(self):
         # Créez un utilisateur de test
-        user = User.objects.create_user(username='testuser', password='testpassword')
+        user = User.objects.create_user(
+            username='testuser', password='testpassword')
 
         # Connectez l'utilisateur
         self.client.login(username='testuser', password='testpassword')
@@ -23,6 +25,8 @@ class LogoutViewTest(TestCase):
         # Vérifiez que l'utilisateur est effectivement déconnecté
         user = get_user_model().objects.get(username='testuser')
         self.assertFalse(user.is_authenticated)
+
+
 class IndexViewTest(TestCase):
     def test_index_view(self):
         # Assurez-vous que l'utilisateur est connecté
@@ -34,7 +38,6 @@ class IndexViewTest(TestCase):
         # Vérifiez que la page s'affiche correctement
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'index.html')
-
 
 
 @pytest.mark.django_db
