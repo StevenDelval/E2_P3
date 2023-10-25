@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator
 from datetime import datetime
 
+
 class CustomUser(AbstractUser):
     # Ajoutez des champs personnalisés ici
 
@@ -77,4 +78,3 @@ class RealEstate(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0), MaxValueValidator(100000000000)]
     )
-    

@@ -26,18 +26,18 @@ def index(request):
 @login_required
 def historique(request):
     trad_label = {
-        "Year_Built":"Année de construction",
-        "First_Flr_SF":"Superficie au 1er étage",
-        "Gr_Liv_Area":"Superficie habitable",
-        "Garage_Area":"Superficie du garage",
-        "Overall_Qual":"Qualité générale",
-        "Full_Bath":"Salles de bains complètes",
-        "Exter_Qual":"Qualité de l'extérieur",
-        "Kitchen_Qual":"Qualité de la cuisine",
-        "Foundation":"Fondation",
-        "Neighborhood":"Quartier",
-        "Created_at":"Predit le",
-        "Pred":"Prix predit"
+        "Year_Built": "Année de construction",
+        "First_Flr_SF": "Superficie au 1er étage",
+        "Gr_Liv_Area": "Superficie habitable",
+        "Garage_Area": "Superficie du garage",
+        "Overall_Qual": "Qualité générale",
+        "Full_Bath": "Salles de bains complètes",
+        "Exter_Qual": "Qualité de l'extérieur",
+        "Kitchen_Qual": "Qualité de la cuisine",
+        "Foundation": "Fondation",
+        "Neighborhood": "Quartier",
+        "Created_at": "Predit le",
+        "Pred": "Prix predit"
     }
     user = request.user  # Obtenez l'utilisateur actuellement connecté
     # Récupérez les 10 dernières prédictions de l'utilisateur
