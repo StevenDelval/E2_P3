@@ -52,7 +52,9 @@ def historique(request):
             if field.name not in ["id", "User"]
         }
         predictions_data.append(prediction_data)
-    return render(request, 'historique.html', {'user_predictions': predictions_data})
+    return render(request,
+                  'historique.html',
+                  {'user_predictions': predictions_data})
 
 
 @login_required

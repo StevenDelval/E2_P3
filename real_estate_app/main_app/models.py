@@ -63,12 +63,12 @@ class RealEstate(models.Model):
     # Caractéristiques catégorielles
     Foundation = models.CharField(
         verbose_name="Fondation",
-        max_length=255  # Adapter la longueur maximale en fonction de vos besoins
+        max_length=255
     )
 
     Neighborhood = models.CharField(
         verbose_name="Quartier",
-        max_length=255  # Adapter la longueur maximale en fonction de vos besoins
+        max_length=255  
     )
     User = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     Created_at = models.DateTimeField(auto_now_add=True)
