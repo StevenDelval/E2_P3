@@ -18,44 +18,61 @@ class UserCreateForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name',
                   'password1', 'password2', 'email')
 
-
+attrs = {
+            'class': 'bg-gray-50 appearance-none border-black-gray '
+                     'text-gray-700 leading-tight focus:outline-none '
+                     'focus:border-bordeaux'
+        }
 class RealEstateForm(forms.Form):
-    # Numeric Features
+    # Caractéristiques numériques
     Year_Built = forms.IntegerField(
-        label="Year Built", min_value=1800, max_value=2023)
+        label="Année de construction", min_value=1800, max_value=2023,
+        widget=forms.NumberInput(attrs=attrs)
+    )
     First_Flr_SF = forms.DecimalField(
-        label="1st Flr SF", min_value=0, max_value=95000)
+        label="Superficie au 1er étage", min_value=0, max_value=95000,
+        widget=forms.NumberInput(attrs=attrs)
+    )
     Gr_Liv_Area = forms.DecimalField(
-        label="Gr Liv Area", min_value=0, max_value=910000)
+        label="Superficie habitable", min_value=0, max_value=910000,
+        widget=forms.NumberInput(attrs=attrs)
+    )
     Garage_Area = forms.DecimalField(
-        label="Garage Area", min_value=0, max_value=93000)
+        label="Superficie du garage", min_value=0, max_value=93000,
+        widget=forms.NumberInput(attrs=attrs)
+    )
     Overall_Qual = forms.IntegerField(
-        label="Overall Qual", min_value=0, max_value=10)
+        label="Qualité générale", min_value=0, max_value=10,
+        widget=forms.NumberInput(attrs=attrs)
+    )
     Full_Bath = forms.IntegerField(
-        label="Full Bath", min_value=0, max_value=100)
-    # Ordinal Features
+        label="Salles de bains complètes", min_value=0, max_value=100,
+        widget=forms.NumberInput(attrs=attrs)
+    )
+
+    # Caractéristiques ordinales
     Exter_Qual = forms.ChoiceField(
-        label="Exterior Quality",
-        choices=[('Ex', 'Excellent'), ('Gd', 'Good'),
-                 ('TA', 'Average'), ('Fa', 'Fair'), ('Po', 'Poor')],
-        widget=forms.Select(attrs={'class': 'form-control'})
+        label="Qualité de l'extérieur",
+        choices=[('Ex', 'Excellent'), ('Gd', 'Bon'),
+                 ('TA', 'Moyen'), ('Fa', 'Mauvais'), ('Po', 'Très mauvais')],
+        widget=forms.Select(attrs=attrs)
     )
 
     Kitchen_Qual = forms.ChoiceField(
-        label="Kitchen Quality",
-        choices=[('Ex', 'Excellent'), ('Gd', 'Good'),
-                 ('TA', 'Average'), ('Fa', 'Fair'), ('Po', 'Poor')],
-        widget=forms.Select(attrs={'class': 'form-control'})
+        label="Qualité de la cuisine",
+        choices=[('Ex', 'Excellent'), ('Gd', 'Bon'),
+                 ('TA', 'Moyen'), ('Fa', 'Mauvais'), ('Po', 'Très mauvais')],
+        widget=forms.Select(attrs=attrs)
     )
 
-    # Categorical Features
+    # Caractéristiques catégorielles
     Foundation = forms.ChoiceField(
-        label="Foundation",
+        label="Fondation",
         choices=get_foundation_categorie(),
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs=attrs)
     )
     Neighborhood = forms.ChoiceField(
-        label="Neighborhood",
+        label="Quartier",
         choices=get_neighborhood_categorie(),
-        widget=forms.Select(attrs={'class': 'form-control'})
+        widget=forms.Select(attrs=attrs)
     )
