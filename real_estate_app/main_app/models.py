@@ -68,7 +68,7 @@ class RealEstate(models.Model):
 
     Neighborhood = models.CharField(
         verbose_name="Quartier",
-        max_length=255  
+        max_length=255
     )
     User = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     Created_at = models.DateTimeField(auto_now_add=True)
