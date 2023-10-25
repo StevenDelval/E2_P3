@@ -18,7 +18,7 @@ class LogoutViewTest(TestCase):
         # Accédez à la vue de déconnexion
         response = self.client.get(reverse('logout'))
 
-        # Vérifiez que l'utilisateur est déconnecté 
+        # Vérifiez que l'utilisateur est déconnecté
         # (redirigé vers la page d'accueil)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('index'))
