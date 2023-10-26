@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.test import Client, TestCase
 from django.contrib.auth.models import User
-from .models import CustomUser
+from .models import CustomUser, RealEstate
 import pytest
 from .utils import (make_prediction,
                     get_foundation_categorie,
@@ -141,6 +141,34 @@ def test_historique_view(client):
     url = reverse('historique')
     response = client.get(url)
     assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_historique_user(client):
+    user = CustomUser.objects.create_user(
+        username='testuser', password='testpassword')
+
+    # Connectez l'utilisateur
+    client.login(username='testuser', password='testpassword')
+    data = {'Year_Built': 1800,
+            'First_Flr_SF': 1800,
+            'Gr_Liv_Area': 5,
+            'Garage_Area': 4,
+            'Overall_Qual': 4,
+            'Full_Bath': 4,
+            'Exter_Qual': 'Ex',
+            'Kitchen_Qual': 'Ex',
+            'Foundation': 'BrkTil',
+            'Neighborhood': 'Blmngtn'
+            }
+    to_pred = {"1st_Flr_SF" if k ==
+               "First_Flr_SF" else k: v for k, v in data.items()}
+    prediction = RealEstate(**data, User=user,  Pred=make_prediction(to_pred))
+    prediction.save()
+    url = reverse('historique')
+    response = client.get(url)
+    content_str = str(response.content, 'utf-8')
+    assert "Année de construction" in content_str
 
 
 @pytest.mark.django_db
