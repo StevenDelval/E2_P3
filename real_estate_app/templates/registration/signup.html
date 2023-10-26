@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block content %}
+
+
+
+<div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="w-full max-w-4xl space-y-8 p-12 bg-white rounded-lg">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900"><i class="fa-solid fa-user-plus"></i> Créer un compte</h2>
+    </div>
+    <form class="mt-8 space-y-6" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="remember" value="true">
+      <div class="-space-y-px rounded-md shadow-sm">
+        <div style="margin: 20px 0">
+          <label for="{{form.username.id_for_label}}">Nom d'utilisateur</label>
+
+          {{form.username|add_class:"relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"}}
+        </div>
+        <div style="margin: 20px 0">
+          <label for="{{form.password1.id_for_label}}">Mot de passe</label>
+          {{form.password1|add_class:"relative block w-full appearance-none rounded-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"}}
+          <div align="left"  <small style="color: grey" style="margin: 20px 0">Votre mot de passe ne doit pas contenir d'informations personnelles, avoir au moins 8 caractères et être composé de lettres et de chiffres.</small> </div>
+        </div>
+        <div style="margin: 20px 0">
+          <label for="{{form.password2.id_for_label}}">Confirmation du mot de passe</label>
+          {{form.password2|add_class:"relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"}}
+        
+          {% comment %} <div align="left"  <small style="color: grey" style="margin: 20px 0">{{form.password2.help_text}}</small> </div> {% endcomment %}
+        </div>
+        <div style="margin: 20px 0">
+          <label for="{{form.email.id_for_label}}">Votre adresse e-mail</label>
+          {{form.email|add_class:"relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"}}
+        <div align="left"  <small style="color: grey" style="margin: 20px 0">Merci d'entrer une adresse valide.</small> </div>
+        </div>
+        <div style="margin: 20px 0">
+          <label for="{{form.first_name.id_for_label}}">Prénom</label>
+          {{form.first_name|add_class:"relative block w-full appearance-none rounded-none  border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"}}
+        
+        </div>
+        <div style="margin: 20px 0">
+          <label for="{{form.last_name.id_for_label}}">Nom de Famille</label>
+          {{form.last_name|add_class:"relative block w-full appearance-none rounded-none rounded-b-lg border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-gray-700 focus:outline-none focus:ring-gray-700 sm:text-sm"}}
+        </div>
+      </div>
+
+
+      <div>
+        <button type="submit" class="group relative flex w-full justify-center rounded-md border border-transparent bg-bordeaux py-2 px-4 text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+            <svg class="h-5 w-5 text-gray-700 group-hover:text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+            </svg>
+          </span>
+          Créer un compte
+        </button>
+      </div>
+        {% for field in form %}
+      <p>
+          {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+      {% endfor %}
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+  </div>
+</div>
+
+{% endblock content %}

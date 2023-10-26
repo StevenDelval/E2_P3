@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="flex flex-col items-center justify-center ">
+    <div class="bg-white p-8 rounded-lg ">
+    <p class="text-lg font-bold mb-4">Mon Profil</p>
+    <p class="mb-2">Nom d'utilisateur : {{user.get_username}}</p>
+    <p class="mb-2">Prénom : {{user.first_name}}</p>
+    <p class="mb-2">Nom de famille : {{user.last_name}}</p>
+    <p class="mb-2">E-mail : {{user.email}}</p>
+    <p class="mb-2">Dernière connexion : {{user.last_login}}</p>
+    <p>Date d'inscription : {{user.date_joined}}</p>
+  </div>
+</section> 
+<section class="flex flex-col items-center justify-center bg-white p-4 rounded-lg overflow-x-auto">
+  
+    <h1>Historique des 10 dernieres Prédictions de {{ user.username }}</h1>
+    <div class="max-w-full">
+      <table class="border ">
+        <thead>
+          <tr class="bg-gray-200">
+            {% for field_name, verbose_name in user_predictions.0.items %}
+              <th class="px-1 py-2 sm:w-1/4 md:w-1/6 lg:w-1/8">{{ field_name }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border" >
+          {% for prediction_data in user_predictions %}
+            
+              {% for field_name, value in prediction_data.items %}
+                <td class="px-1 py-2 sm:w-1/4 md:w-1/6 lg:w-1/8">{{ value }}</td>
+              {% endfor %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    
+    
+</div>
+</section>  
+
+{% endblock content %}
