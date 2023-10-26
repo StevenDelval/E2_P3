@@ -169,6 +169,41 @@ def test_predict_view_post_method_good_input(client):
 
 
 @pytest.mark.django_db
+def test_index_with_no_user(client):
+    url = reverse('index')
+    response = client.post(url)
+    assert response.status_code == 302
+    assert response.url.startswith(reverse('login'))
+
+
+@pytest.mark.django_db
+def test_historique_with_no_user(client):
+    url = reverse('historique')
+    response = client.post(url)
+    assert response.status_code == 302
+    assert response.url.startswith(reverse('login'))
+
+
+@pytest.mark.django_db
+def test_predict_with_no_user(client):
+    url = reverse('predict')
+    data = {'Year_Built': 1800,
+            'First_Flr_SF': 1800,
+            'Gr_Liv_Area': 5,
+            'Garage_Area': "test",
+            'Overall_Qual': 4,
+            'Full_Bath': 4,
+            'Exter_Qual': 'Ex',
+            'Kitchen_Qual': 'Ex',
+            'Foundation': 'BrkTil',
+            'Neighborhood': 'Blmngtn'
+            }
+    response = client.post(url, data)
+    assert response.status_code == 302
+    assert response.url.startswith(reverse('login'))
+
+
+@pytest.mark.django_db
 def test_predict_view_post_method_wrong_input(client):
     user = CustomUser.objects.create_user(
         username='testuser', password='testpassword')
