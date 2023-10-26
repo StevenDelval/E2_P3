@@ -129,6 +129,7 @@ def test_logout_view(client):
     url = reverse('logout')
     response = client.post(url)
     assert response.status_code == 302
+    assert response.url.startswith(reverse('index'))
 
 
 @pytest.mark.django_db
