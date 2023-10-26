@@ -17,7 +17,7 @@ def make_prediction(input: dict) -> float:
     return pred
 
 
-def get_neighborhood_categorie():
+def get_neighborhood_categorie() -> list:
 
     NEIGHBORHOOD_MAPPING = {
         'Blmngtn': 'Bloomington Heights',
@@ -60,7 +60,7 @@ def get_neighborhood_categorie():
     return categories
 
 
-def get_foundation_categorie():
+def get_foundation_categorie() -> list:
 
     FOUNDATION_MAPPING = {
         'BrkTil': 'Brick & Tile',

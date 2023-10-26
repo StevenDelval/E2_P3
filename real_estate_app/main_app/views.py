@@ -68,14 +68,14 @@ def predict(request):
                 "Foundation", "Neighborhood"
             ]:
                 if var in ["Exter_Qual", "Kitchen_Qual",
-                        "Foundation", "Neighborhood"
-                        ]:
+                           "Foundation", "Neighborhood"
+                           ]:
                     X_predict[var] = request.POST.get(var)
                 elif var == "First_Flr_SF":
                     X_predict["1st_Flr_SF"] = float(request.POST.get(var))
                 else:
                     X_predict[var] = float(request.POST.get(var))
-        except:
+        except (ValueError, TypeError):
             return HttpResponse("The Input is not Correct")
         pred = make_prediction(X_predict)
         if pred != 0:

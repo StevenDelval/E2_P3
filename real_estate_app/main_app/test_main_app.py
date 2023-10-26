@@ -4,7 +4,7 @@ from django.test import Client, TestCase
 from django.contrib.auth.models import User
 from .models import CustomUser
 import pytest
-from .utils import make_prediction
+from .utils import make_prediction, get_foundation_categorie, get_neighborhood_categorie
 
 
 @pytest.mark.django_db
@@ -41,6 +41,54 @@ def test_wrong_prediction():
 
     prediction = make_prediction(wrong_input)
     assert prediction == 0
+
+
+@pytest.mark.django_db
+def test_get_foundation_categorie():
+
+    resultat_attendus = [
+        ('BrkTil', 'Brick & Tile'),
+        ('CBlock', 'Cinder Block'),
+        ('PConc', 'Poured Concrete'),
+        ('Slab', 'Slab'),
+        ('Stone', 'Stone'),
+        ('Wood', 'Wood')
+    ]
+    resultat_obtenue = get_foundation_categorie()
+    assert resultat_obtenue == resultat_attendus
+
+
+@pytest.mark.django_db
+def test_get_neighborhood_categorie():
+
+    resultat_attendus = [
+        ('Blmngtn', 'Bloomington Heights'),
+        ('Blueste', 'Bluestem'),
+        ('BrDale', 'Briardale'),
+        ('BrkSide', 'Brookside'),
+        ('ClearCr', 'Clear Creek'),
+        ('CollgCr', 'College Creek'),
+        ('Crawfor', 'Crawford'),
+        ('Edwards', 'Edwards'),
+        ('Gilbert', 'Gilbert'),
+        ('Greens', 'Greens'),
+        ('IDOTRR', 'Iowa DOT and Rail Road'),
+        ('MeadowV', 'Meadow Village'),
+        ('Mitchel', 'Mitchell'),
+        ('NAmes', 'NAmes'),
+        ('NPkVill', 'Northpark Villa'),
+        ('NWAmes', 'Northwest Ames'),
+        ('NoRidge', 'Northridge'),
+        ('NridgHt', 'Northridge Heights'),
+        ('OldTown', 'Old Town'),
+        ('SWISU', 'South & West of Iowa State University'),
+        ('Sawyer', 'Sawyer'), ('SawyerW', 'Sawyer West'),
+        ('Somerst', 'Somerset'), ('StoneBr', 'Stone Brook'),
+        ('Timber', 'Timberland'),
+        ('Veenker', 'Veenker')
+    ]
+    resultat_obtenue = get_neighborhood_categorie()
+    assert resultat_obtenue == resultat_attendus
 
 
 @pytest.mark.django_db
@@ -95,7 +143,7 @@ def test_historique_view(client):
 
 @pytest.mark.django_db
 def test_predict_view_post_method_good_input(client):
-    # Créez un utilisateur et définissez son nom d'utilisateur et son mot de passe
+
     user = CustomUser.objects.create_user(
         username='testuser', password='testpassword')
 
