@@ -10,9 +10,7 @@ def make_prediction(input: dict) -> float:
 
     try:
         pred = np.exp(float(model.predict(pd.DataFrame(input, index=[0]))))
-    except TypeError:
-        pred = 0
-    except ValueError:
+    except (TypeError, ValueError):
         pred = 0
     return pred
 

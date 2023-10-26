@@ -4,7 +4,9 @@ from django.test import Client, TestCase
 from django.contrib.auth.models import User
 from .models import CustomUser
 import pytest
-from .utils import make_prediction, get_foundation_categorie, get_neighborhood_categorie
+from .utils import (make_prediction,
+                    get_foundation_categorie,
+                    get_neighborhood_categorie)
 
 
 @pytest.mark.django_db
