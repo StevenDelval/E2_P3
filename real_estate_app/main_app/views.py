@@ -61,37 +61,40 @@ def historique(request):
 def predict(request):
     if request.method == 'POST':
         X_predict = {}
-        for var in [
-            "Year_Built", "First_Flr_SF", "Gr_Liv_Area", "Garage_Area",
-            "Overall_Qual", "Full_Bath", "Exter_Qual",  "Kitchen_Qual",
-            "Foundation", "Neighborhood"
-        ]:
-            if var in ["Exter_Qual", "Kitchen_Qual",
-                       "Foundation", "Neighborhood"
-                       ]:
-                X_predict[var] = request.POST.get(var)
-            elif var == "First_Flr_SF":
-                X_predict["1st_Flr_SF"] = float(request.POST.get(var))
-            else:
-                X_predict[var] = float(request.POST.get(var))
-        current_user = request.user
+        try:
+            for var in [
+                "Year_Built", "First_Flr_SF", "Gr_Liv_Area", "Garage_Area",
+                "Overall_Qual", "Full_Bath", "Exter_Qual",  "Kitchen_Qual",
+                "Foundation", "Neighborhood"
+            ]:
+                if var in ["Exter_Qual", "Kitchen_Qual",
+                        "Foundation", "Neighborhood"
+                        ]:
+                    X_predict[var] = request.POST.get(var)
+                elif var == "First_Flr_SF":
+                    X_predict["1st_Flr_SF"] = float(request.POST.get(var))
+                else:
+                    X_predict[var] = float(request.POST.get(var))
+        except:
+            return HttpResponse("The Input is not Correct")
         pred = make_prediction(X_predict)
-        real_estate_instance = RealEstate(
-            Year_Built=request.POST['Year_Built'],
-            First_Flr_SF=request.POST['First_Flr_SF'],
-            Gr_Liv_Area=request.POST['Gr_Liv_Area'],
-            Garage_Area=request.POST['Garage_Area'],
-            Overall_Qual=request.POST['Overall_Qual'],
-            Full_Bath=request.POST['Full_Bath'],
-            Exter_Qual=request.POST['Exter_Qual'],
-            Kitchen_Qual=request.POST['Kitchen_Qual'],
-            Foundation=request.POST['Foundation'],
-            Neighborhood=request.POST['Neighborhood'],
-            User=current_user,
-            Pred=pred
-        )
-        real_estate_instance.save()
         if pred != 0:
+            current_user = request.user
+            real_estate_instance = RealEstate(
+                Year_Built=request.POST['Year_Built'],
+                First_Flr_SF=request.POST['First_Flr_SF'],
+                Gr_Liv_Area=request.POST['Gr_Liv_Area'],
+                Garage_Area=request.POST['Garage_Area'],
+                Overall_Qual=request.POST['Overall_Qual'],
+                Full_Bath=request.POST['Full_Bath'],
+                Exter_Qual=request.POST['Exter_Qual'],
+                Kitchen_Qual=request.POST['Kitchen_Qual'],
+                Foundation=request.POST['Foundation'],
+                Neighborhood=request.POST['Neighborhood'],
+                User=current_user,
+                Pred=pred
+            )
+            real_estate_instance.save()
             return render(request, 'index.html',
                           {'data': float("{:.2f}".format(pred))}
                           )
